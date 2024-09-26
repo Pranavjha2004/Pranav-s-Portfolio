@@ -42,6 +42,15 @@
   }
 }
 
+@media (max-width: 640px){
+  .marquee {
+    width: 150%;
+  }
+  .skills-container {
+    padding: 0;
+  }
+}
+
 @media (min-width: 768px) {
   .skill-icon {
     width: 40px;

@@ -1,0 +1,34 @@
+/* Ensure the line covers the full height */
+#timeline-line {
+    left: 50%;
+    height: 100%;
+  }
+  
+  /* Style for the dot and card */
+  .experience-card {
+    position: relative;
+  }
+  
+  /* Adjust spacing for smaller screens */
+  @media (max-width: 640px) {
+    .experience-card {
+      margin: 0;
+    }
+    
+    #timeline-line {
+      display: none; /* Hide the line on smaller screens if it's not necessary */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .experience-card {
+      width: 90%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .experience-card {
+      width: 75%;
+    }
+  }
+  

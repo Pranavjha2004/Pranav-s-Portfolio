@@ -1,0 +1,80 @@
+.nav-items {
+    position: relative;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    color: #a0a0a0;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    padding: 0 10px;
+    display: inline-block; /* Ensure correct positioning of pseudo-element */
+}
+
+.nav-items:after {
+    content: "";
+    position: absolute;
+    background-color: #ffdf00;
+    height: 3.5px;
+    width: 0;
+    left: 0;
+    bottom: -5px;
+    transition: width 0.3s ease; /* Transition only width */
+}
+
+.nav-items:hover {
+    color: #ffffff;
+}
+
+.nav-items:hover:after {
+    width: 100%;
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1001;
+  }
+  
+  .line {
+    width: 24px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .hamburger .top {
+    transform-origin: top left;
+  }
+  
+  .hamburger .bottom {
+    transform-origin: bottom left;
+  }
+  
+  /* Hamburger Animation */
+  .hamburger.open .top {
+    transform: rotate(45deg);
+    background-color: #ff6b6b;
+  }
+  
+  .hamburger.open .middle {
+    opacity: 0;
+  }
+  
+  .hamburger.open .bottom {
+    transform: rotate(-45deg);
+    background-color: #ff6b6b;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-items {
+      padding: 10px;
+      text-align: center;
+      width: 100%;
+    }
+  }

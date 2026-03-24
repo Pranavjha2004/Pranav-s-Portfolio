@@ -1,0 +1,103 @@
+/* CustomCursor.css */
+
+html, body, a, button {
+  cursor: none !important;
+}
+
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  will-change: transform; 
+}
+
+/* Central Point - Hard Attached to Mouse */
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #33CCFF;
+  margin-left: -3px;
+  margin-top: -3px;
+  z-index: 10000;
+}
+
+/* Outer Ring - Smooth Spring Follow */
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(51, 204, 255, 0.4);
+  margin-left: -20px;
+  margin-top: -20px;
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+}
+
+/* --- CLICK RIPPLE ANIMATION --- */
+.cursor-ripple {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #33CCFF;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rippleEffect 0.6s ease-out forwards;
+}
+
+@keyframes rippleEffect {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 1;
+    border-width: 4px;
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    border-width: 1px;
+    filter: blur(2px);
+  }
+}
+
+/* --- DYNAMIC STATES --- */
+
+.cursor-ring.pointer {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  background-color: rgba(51, 204, 255, 0.1);
+  border-color: #33CCFF;
+}
+
+.cursor-ring.skill {
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  background-color: rgba(160, 0, 255, 0.15);
+  border-color: #A000FF;
+  box-shadow: 0 0 20px rgba(160, 0, 255, 0.2);
+}
+
+.cursor-ring.hero {
+  border-style: dashed;
+  /* Rotation is handled here since the transform is updated by JS */
+  animation: cursorSpin 5s linear infinite;
+}
+
+@keyframes cursorSpin {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+
+/* Only hide the default cursor on Desktop (screens >= 1024px) */
+@media (min-width: 1024px) {
+  html, body, a, button, [data-cursor] {
+    cursor: none !important;
+  }
+}

@@ -1,0 +1,104 @@
+/* --- ProgressPath.css --- */
+
+.progress-container {
+  position: fixed;
+  top: 15vh; /* Slightly lower to clear navigation items */
+  left: 30px;
+  width: 2px;
+  height: 70vh; /* Reduced height to prevent hitting footer too early */
+  z-index: 90;
+  pointer-events: none;
+  transition: all 0.5s ease; /* Smooth movement when screen resizes */
+}
+
+/* The background "empty" path */
+.progress-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: visible;
+}
+
+/* The "Energy" filling up */
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%; /* Managed by GSAP */
+  background: linear-gradient(to bottom, #33ccff, #a000ff);
+  box-shadow: 0 0 15px rgba(51, 204, 255, 0.6);
+  border-radius: 10px;
+}
+
+/* The pulsing tip */
+.progress-head {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 10px #fff,
+    0 0 20px #33ccff,
+    0 0 40px #a000ff;
+  animation: cometBlur 1.5s infinite alternate;
+}
+
+@keyframes cometBlur {
+  from { filter: blur(0px); transform: translateX(-50%) scale(1); }
+  to { filter: blur(2px); transform: translateX(-50%) scale(1.4); }
+}
+
+.marker {
+  position: absolute;
+  left: -2px;
+  width: 6px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* --- RESPONSIVE REFINEMENTS --- */
+
+/* For Tablets: Move it closer to the edge */
+@media (max-width: 1024px) {
+  .progress-container {
+    left: 15px; /* Pull closer to edge to save space */
+    height: 60vh;
+    top: 20vh;
+  }
+}
+
+/* For Mobile: Instead of hiding, make it a ultra-subtle 1px line */
+@media (max-width: 768px) {
+  .progress-container {
+    left: 8px; /* Near the very edge */
+    width: 1px; /* Thinner */
+    height: 50vh;
+    opacity: 0.5; /* More subtle */
+  }
+
+  .progress-head {
+    width: 4px; /* Smaller comet */
+    height: 4px;
+    bottom: -2px;
+  }
+  
+  .marker {
+    width: 4px;
+    left: -1.5px;
+  }
+}
+
+/* For very small screens: Hide to avoid any collision with content */
+@media (max-width: 480px) {
+  .progress-container {
+    display: none;
+  }
+}

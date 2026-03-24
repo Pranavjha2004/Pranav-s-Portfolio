@@ -10,12 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.88.6",
+    "@react-three/fiber": "^8.16.8",
+    "@tsparticles/react": "^3.0.0",
     "@vercel/analytics": "^1.3.1",
     "@vercel/speed-insights": "^1.0.12",
+    "framer-motion": "^12.36.0",
+    "gsap": "^3.14.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-parallax-tilt": "^1.7.320",
     "react-scroll": "^1.9.0",
-    "react-simple-typewriter": "^5.0.1"
+    "react-simple-image-slider": "^2.4.1",
+    "react-simple-typewriter": "^5.0.1",
+    "three": "^0.158.0",
+    "tsparticles": "^3.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

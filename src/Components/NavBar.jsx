@@ -1,48 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import './NavBar.css';
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Logic: If scrolled more than 50px, add the glass effect
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className='navbar-container fixed top-0 right-0 left-0 z-[1000] bg-custom-gradient text-white'>
-      <div className='flex justify-between items-center font-ubuntu pt-6 pb-6 px-6 md:px-20'>
-        <div className='cursor-pointer font-bold text-3xl'>
-          <Link to="hero" spy={true} smooth={true} offset={10} duration={500}>
-            Portfolio
+    // The wrapper must ALWAYS have navbar-wrapper for the fixed positioning
+    <nav className={`navbar-wrapper ${scrolled ? 'navbar-scrolled' : ''}`}>
+      <div className='navbar-container'>
+        <div className='logo-section'>
+          <Link to="hero" spy={true} smooth={true} offset={0} duration={500} className="logo-text">
+            PRANAV<span className="text-cyan-400">.</span>
           </Link>
         </div>
+
+        <ul className='hidden md:flex items-center gap-8'>
+          {['About', 'Experience', 'Projects', 'Certificate', 'Contact'].map((item) => (
+            <li key={item}>
+              <Link
+                to={item.toLowerCase()}
+                spy={true}
+                smooth={true}
+                offset={-100}
+                duration={500}
+                className="nav-link"
+                activeClass="nav-link-active"
+              >
+                {item === 'Certificate' ? 'Certifications' : item}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
         <div className='md:hidden'>
-          {/* Hamburger Icon */}
-          <button onClick={toggleMenu} className={`hamburger ${isOpen ? 'open' : ''}`}>
-            <span className="line top"></span>
-            <span className="line middle"></span>
-            <span className="line bottom"></span>
+          <button onClick={toggleMenu} className={`hamburger-btn ${isOpen ? 'is-active' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
         </div>
-        {/* Desktop Menu */}
-        <ul className='hidden md:flex justify-between gap-5 font-bold text-xl cursor-pointer'>
-          <li className='nav-items'><Link to="about" spy={true} smooth={true} offset={-95} duration={500}>About</Link></li>
-          <li className='nav-items'><Link to="experience" spy={true} smooth={true} offset={-50} duration={500}>Experience</Link></li>
-          <li className='nav-items'><Link to="projects" spy={true} smooth={true} offset={-120} duration={500}>Projects</Link></li>
-          <li className='nav-items'><Link to="contact" spy={true} smooth={true} offset={50} duration={500}>Contact Me</Link></li>
+      </div>
+
+      <div className={`mobile-menu ${isOpen ? 'mobile-menu-open' : ''}`}>
+        <ul className='mobile-nav-list'>
+          {['About', 'Experience', 'Projects', 'Certificate', 'Contact'].map((item) => (
+            <li key={item} className="w-full text-center">
+              <Link
+                to={item.toLowerCase()}
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={500}
+                onClick={toggleMenu}
+                className="mobile-nav-link"
+              >
+                {item}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
-      {/* Mobile Menu */}
-      {isOpen && (
-        <ul className='md:hidden flex flex-col items-center gap-6 font-bold text-xl bg-custom-gradient pb-6'>
-          <li className='nav-items'><Link to="about" spy={true} smooth={true} offset={-95} duration={500} onClick={toggleMenu}>About</Link></li>
-          <li className='nav-items'><Link to="experience" spy={true} smooth={true} offset={-50} duration={500} onClick={toggleMenu}>Experience</Link></li>
-          <li className='nav-items'><Link to="projects" spy={true} smooth={true} offset={-120} duration={500} onClick={toggleMenu}>Projects</Link></li>
-          <li className='nav-items'><Link to="contact" spy={true} smooth={true} offset={50} duration={500} onClick={toggleMenu}>Contact Me</Link></li>
-        </ul>
-      )}
-    </div>
+    </nav>
   );
 }
 

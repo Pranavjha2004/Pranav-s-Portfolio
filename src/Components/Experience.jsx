@@ -1,97 +1,132 @@
-import React, { useEffect, useRef, useState } from 'react';
-import CompanyALogo from '../assets/Su_logo.jpg';
-import CompanyBLogo from '../assets/Deck-logo.png';
-import CompanyCLogo from '../assets/Switchclub_logo.jpg';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-scroll";
+// Asset Imports
+import CompanyALogo from "../assets/Su_logo.jpg";
+import CompanyBLogo from "../assets/Deck-logo.png";
+import CompanyCLogo from "../assets/Switchclub_logo.jpg";
+import "./Experience.css";
 
 const experiences = [
   {
     company: "Silicon University",
-    position: "MERN Stack",
+    position: "MERN Stack Intern",
     duration: "Jun 2024 - Jul 2024",
-    description: "Worked on developing scalable web applications and enhancing user experiences.",
+    description: "Worked on developing scalable web applications and enhancing user experiences through modern MERN architectures.",
     logo: CompanyALogo,
   },
   {
     company: "DeckFlare",
-    position: "Web Developer and Manager",
-    duration: "Jul 2024 - Present",
-    description: "Led a team to design and implement responsive web designs using React and Tailwind CSS.",
+    position: "Web Developer & Manager",
+    duration: "Jul 2024 - Aug 2024",
+    description: "Led a team to design and implement responsive web designs using React and Tailwind CSS, focusing on performance and SEO.",
     logo: CompanyBLogo,
   },
   {
     company: "Switch Club",
-    position: "Core-Member (Tech Team)",
+    position: "Joint-Secretary",
     duration: "Sept 2024 - Present",
-    description: "Collaborated on various projects focusing on improving UX/UI and web performance.",
+    description: "Coordinated hackathons and technical events, and delivered sessions to foster practical learning, collaboration, and innovation among students.",
     logo: CompanyCLogo,
   }
 ];
 
 const Experience = () => {
-  const [activeCards, setActiveCards] = useState(new Set()); // Use Set to prevent duplicates
-  const lineRef = useRef(null); // Ref for the timeline line
+  const [activeCards, setActiveCards] = useState(new Set());
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveCards(prev => new Set(prev).add(entry.target.id)); // Ensure unique entries
-        }
-      });
-    }, { threshold: 0.2 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveCards((prev) => new Set(prev).add(entry.target.id));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    const elements = document.querySelectorAll('.experience-card');
-    elements.forEach(el => observer.observe(el));
-
-    if (lineRef.current) {
-      observer.observe(lineRef.current);
-    }
+    const elements = document.querySelectorAll(".experience-card, .timeline-path");
+    elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);
 
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+  };
+
   return (
-    <div className="container mx-auto px-5 py-10 mt-12 overflow-x-hidden" id='experience'>
-      <h2 className="text-3xl font-bold text-center mb-8 text-white font-ubuntu">Work Experience</h2>
-      
-      {/* Timeline Line */}
-      <div
-        ref={lineRef}
-        className={`overflow-x-hidden h-[715px] w-1 bg-gray-300 absolute transition-all duration-[2000ms] ease-in-out 
-          ${activeCards.has('timeline-line') ? 'h-full opacity-100 shadow-xl' : 'h-0 opacity-0 shadow-none'}`}
-        id="timeline-line"
-        style={{ left: '50%', transform: 'translateX(-50%)' }} // Center the timeline line
-      ></div>
+    <section className="experience-wrapper" id="experience">
+      {/* Dynamic Background Glow */}
+      <div className="experience-bg-glow" />
 
-      {experiences.map((experience, index) => (
-        <div
-          key={index}
-          id={`card-${index}`}
-          className={`experience-card mb-14 w-full md:w-1/2 ${
-            index % 2 === 0 ? 'md:ml-auto md:pr-16' : 'md:mr-auto md:pl-16'
-          } relative transition-all duration-[1500ms] ease-out opacity-0 
-            ${activeCards.has(`card-${index}`) 
-              ? `opacity-100 translate-x-0` 
-              : index % 2 === 0 
-              ? 'translate-x-12' // Right side cards translate from the right
-              : '-translate-x-12' // Left side cards translate from the left
-            }`}
-        >
-          {/* Timeline Dot with Company Logo */}
-          <span className={`absolute -top-5 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center ring-8 ring-white object-cover`}>
-            <img className='rounded-full w-full h-full' src={experience.logo} alt={`${experience.company} logo`} />
-          </span>
+      <div className="container mx-auto px-6 relative">
+        <header className="experience-header">
+          <h2 className="experience-title">
+            Professional <span className="title-gradient">Journey</span>
+          </h2>
+          <div className="title-underline" />
+        </header>
 
-          {/* Experience Card */}
-          <div className="overflow-x-hidden bg-white px-10 mr-10 ml-7 p-6 rounded-lg shadow-md">
-            <h3 className="text-2xl font-bold pt-5 text-gray-800">{experience.company}</h3>
-            <span className="text-sm font-medium text-gray-600">{experience.position}</span>
-            <p className="text-sm text-gray-500">{experience.duration}</p>
-            <p className="mt-2 text-gray-700">{experience.description}</p>
+        <div className="timeline-container">
+          {/* Central Timeline Line (Desktop) / Left Line (Mobile) */}
+          <div className="timeline-line">
+            <div 
+              className={`timeline-path ${activeCards.has("timeline-path") ? "active" : ""}`}
+              id="timeline-path"
+            />
+          </div>
+
+          <div className="experience-list">
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                id={`exp-card-${index}`}
+                className={`experience-card ${index % 2 === 0 ? "left-card" : "right-card"} 
+                  ${activeCards.has(`exp-card-${index}`) ? "is-visible" : ""}`}
+                onMouseMove={handleMouseMove}
+              >
+                {/* Timeline Node (The Logo Portal) */}
+                <div className="timeline-node">
+                  <div className="node-portal">
+                    <img src={exp.logo} alt={exp.company} />
+                  </div>
+                  <div className="node-pulse" />
+                </div>
+
+                {/* Content Card */}
+                <div className="card-outer-border">
+                  <div className="card-inner-content">
+                    <div className="card-glow-effect" />
+                    
+                    <div className="card-header">
+                      <div className="header-main">
+                        <h3>{exp.company}</h3>
+                        <p className="position-tag">{exp.position}</p>
+                      </div>
+                      <span className="duration-badge">{exp.duration}</span>
+                    </div>
+                    
+                    <p className="description-text">{exp.description}</p>
+
+                    {/* Progress Fill Bottom */}
+                    <div 
+                      className="card-progress-line" 
+                      style={{ width: activeCards.has(`exp-card-${index}`) ? "100%" : "0%" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
+      </div>
+    </section>
   );
 };
 

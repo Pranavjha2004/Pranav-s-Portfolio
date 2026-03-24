@@ -1,0 +1,209 @@
+/* SplashScreen.css */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #010409;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: #33ccff;
+  font-family: 'Ubuntu', monospace;
+  overflow: hidden;
+}
+
+/* Background Code Rain Effect */
+.command-rain {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+}
+
+.rain-column {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 11px;
+  color: #33ccff;
+  font-weight: bold;
+}
+
+/* Tiered Speeds for Intensity */
+.rain-column.fast { animation: rainMove 1s linear infinite; }
+.rain-column.medium { animation: rainMove 1.5s linear infinite; }
+.rain-column.slow { animation: rainMove 2.5s linear infinite; }
+
+@keyframes rainMove {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
+}
+
+.flicker-text {
+  animation: textFlicker 0.1s infinite;
+  color: #fff;
+  text-shadow: 0 0 8px #33ccff;
+}
+
+@keyframes textFlicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+/* Central Content */
+.splash-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  padding: 0 20px;
+}
+
+.system-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.loader-ring {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(51, 204, 255, 0.1);
+  border-top: 3px solid #33ccff;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(51, 204, 255, 0.3);
+}
+
+.loading-title {
+  font-size: 12px;
+  letter-spacing: 6px;
+  font-weight: 800;
+  color: #33ccff;
+  text-shadow: 0 0 10px rgba(51, 204, 255, 0.5);
+}
+
+/* Feature Checklist */
+.feature-checklist {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.check-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: rgba(51, 204, 255, 0.03);
+  border-left: 3px solid #33ccff;
+  font-size: 11px;
+  backdrop-filter: blur(5px);
+}
+
+.check-label { color: rgba(255, 255, 255, 0.7); letter-spacing: 1px; }
+.check-status { color: #33ccff; font-weight: bold; }
+
+/* Progress Bar */
+.boot-progress-container {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.boot-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #33ccff, #a000ff);
+  box-shadow: 0 0 20px rgba(51, 204, 255, 0.6);
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 20%, black 100%);
+  pointer-events: none;
+}
+
+/* ... Keep all your existing CSS above this ... */
+
+/* --- RESPONSIVE REFINEMENTS --- */
+
+/* 1. Adjusting Central Content for smaller screens */
+@media (max-width: 768px) {
+  .splash-content {
+    max-width: 90%; /* Use percentage instead of fixed px on mobile */
+    padding: 0 15px;
+  }
+
+  .loading-title {
+    font-size: 10px; /* Smaller title */
+    letter-spacing: 4px; /* Reduced tracking */
+  }
+
+  .splash-text {
+    font-size: 1.5rem; /* Shrink main text if you have it */
+  }
+
+  /* Reduce the size of the ring so it doesn't dominate the screen */
+  .loader-ring {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 25px;
+  }
+}
+
+/* 2. Optimizing the "Command Rain" density for Mobile */
+@media (max-width: 600px) {
+  .command-rain {
+    opacity: 0.1; /* Slightly dim the background to keep text readable on small screens */
+  }
+
+  /* We skip every second column on mobile to prevent "visual noise" */
+  .rain-column:nth-child(even) {
+    display: none;
+  }
+
+  .rain-column {
+    font-size: 9px; /* Smaller background text */
+    gap: 15px;
+  }
+}
+
+/* 3. Checklist Adjustments */
+@media (max-width: 480px) {
+  .check-item {
+    padding: 8px 12px; /* Tighter padding */
+    font-size: 10px; /* Slightly smaller font */
+  }
+
+  .check-label {
+    letter-spacing: 0.5px;
+  }
+}
+
+/* 4. Landscape / Small Height Support */
+/* This prevents the content from being cut off if the phone is held horizontally */
+@media (max-height: 500px) {
+  .system-header {
+    margin-bottom: 15px;
+  }
+  .feature-checklist {
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+  .loader-ring {
+    display: none; /* Hide the ring to save vertical space */
+  }
+}

@@ -1,0 +1,99 @@
+/* Custom Scrollbar Hiding */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Section Title Animation */
+.bg-clip-text {
+    background-size: 200% auto;
+    animation: textGradient 4s linear infinite;
+}
+
+@keyframes textGradient {
+    to { background-position: 200% center; }
+}
+
+/* Card Entry Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.snap-center {
+    animation: fadeInUp 0.8s ease backwards;
+}
+
+/* Staggered animation for list items */
+.snap-center:nth-child(1) { animation-delay: 0.1s; }
+.snap-center:nth-child(2) { animation-delay: 0.2s; }
+.snap-center:nth-child(3) { animation-delay: 0.3s; }
+.snap-center:nth-child(4) { animation-delay: 0.4s; }
+
+/* Smooth Scroll Snap */
+.projects-scroll-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Projects.css additions */
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Arrows for Desktop */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  padding: 1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.3s;
+}
+
+.left-arrow { left: -1.5rem; }
+.right-arrow { right: -1.5rem; }
+
+.nav-arrow:hover {
+  background: #06b6d4;
+  color: #020617;
+}
+
+/* Mobile Scroll Hint: A subtle shadow on the right to show more content */
+.mobile-scroll-hint {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 60px;
+  background: linear-gradient(to left, #020617 0%, transparent 100%);
+  z-index: 20;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+@media (max-width: 1024px) {
+  .nav-arrow { display: none; } /* Hide arrows on touch devices */
+  .mobile-scroll-hint { display: block; } /* Show gradient hint */
+}
+
+/* Ensure cards snap correctly to the center of the screen */
+.snap-center {
+  scroll-snap-align: center;
+}

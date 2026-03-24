@@ -1,0 +1,309 @@
+/* src/components/Certificates.css */
+
+.certificates-section {
+    position: relative;
+    padding: clamp(60px, 10vh, 100px) 20px;
+    background: #020617;
+    overflow: hidden;
+    perspective: 1000px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.cert-bg-blob {
+    position: absolute;
+    width: clamp(250px, 40vw, 500px);
+    height: clamp(250px, 40vw, 500px);
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+    opacity: 0.15;
+}
+
+.blob-1 { top: -10%; left: -10%; background: #33ccff; }
+.blob-2 { bottom: -10%; right: -10%; background: #a000ff; }
+
+.cert-header {
+    position: relative;
+    z-index: 10;
+    margin-bottom: clamp(30px, 5vh, 60px);
+    text-align: center;
+}
+
+.cert-slider-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: clamp(10px, 2vw, 40px);
+    width: 100%;
+}
+
+.cert-display-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Fluid height based on screen size */
+    min-height: clamp(320px, 50vh, 550px);
+    width: 100%;
+}
+
+.cert-glass-card {
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    /* Responsive aspect ratio */
+    aspect-ratio: 4/3;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: clamp(16px, 3vw, 24px);
+    padding: clamp(10px, 2vw, 20px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    touch-action: pan-y; /* Allows scrolling page while touching card */
+}
+
+.cert-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: clamp(10px, 2vw, 16px);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cert-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none; /* Prevents image dragging from breaking Framer Motion drag */
+}
+
+/* Neon Accents */
+.corner-glow {
+    position: absolute;
+    width: clamp(60px, 15vw, 100px);
+    height: clamp(60px, 15vw, 100px);
+    filter: blur(40px);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.tl { top: -20px; left: -20px; background: #33ccff; }
+.br { bottom: -20px; right: -20px; background: #a000ff; }
+
+/* Navigation Buttons */
+.cert-nav-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cert-nav-btn:hover {
+    background: #33ccff;
+    color: #020617;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(51, 204, 255, 0.4);
+}
+
+/* Overlay Title */
+.cert-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 15px 15px;
+    background: linear-gradient(to top, rgba(2, 6, 23, 0.95), transparent);
+    display: flex;
+    justify-content: center;
+}
+
+.cert-name-tag {
+    color: #33ccff;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(10px, 1.5vw, 13px);
+    background: rgba(51, 204, 255, 0.1);
+    padding: 6px clamp(10px, 2vw, 18px);
+    border-radius: 100px;
+    border: 1px solid rgba(51, 204, 255, 0.2);
+    white-space: nowrap;
+}
+
+/* Pagination Dots */
+.cert-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: clamp(20px, 4vh, 40px);
+}
+
+.pagination-dot {
+    width: 10px;
+    height: 5px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-dot.active {
+    width: 25px;
+    background: #33ccff;
+    box-shadow: 0 0 10px rgba(51, 204, 255, 0.5);
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+    .cert-nav-btn { width: 44px; height: 44px; }
+}
+
+@media (max-width: 768px) {
+    .cert-nav-btn { display: none; } /* Hide buttons on mobile; use drag/dots */
+    .cert-glass-card { 
+        aspect-ratio: 1/1; /* Square ratio for mobile screens */
+        max-width: 90vw;
+    }
+    .cert-display-area { min-height: 300px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .cert-display-area { min-height: 250px; }
+    .cert-glass-card { 
+        aspect-ratio: 16/9; 
+        max-width: 450px;
+    }
+    .cert-header { margin-bottom: 10px; }
+}
+
+
+/* --- src/components/Certificates.css additions --- */
+
+/* View Hint Overlay */
+.cert-view-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: zoom-in;
+}
+
+.cert-glass-card:hover .cert-view-hint {
+  opacity: 1;
+}
+
+.cert-view-hint span {
+  background: #33ccff;
+  color: #020617;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 20px rgba(51, 204, 255, 0.4);
+}
+
+/* --- LIGHTBOX STYLES --- */
+.cert-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 4, 9, 0.95);
+  backdrop-filter: blur(15px);
+  z-index: 10000; /* Above Navbar and everything else */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  cursor: zoom-out;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  background: #0f172a;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(51, 204, 255, 0.2);
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.8);
+  cursor: default;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.close-lightbox {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.close-lightbox:hover {
+  transform: rotate(90deg) scale(1.2);
+  color: #33ccff;
+}
+
+.lightbox-caption {
+  margin-top: 15px;
+  text-align: center;
+  color: #33ccff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .lightbox-content {
+    max-width: 95vw;
+    padding: 5px;
+  }
+  .cert-view-hint {
+    display: none; /* No hover on mobile, users just tap */
+  }
+  .close-lightbox {
+    top: 10px;
+    right: 15px;
+    background: rgba(2, 6, 23, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,17 +1,285 @@
-.box::after{
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%) rotate(45deg);
-    height: 600px;
-    width: 200px;
-    background:#c9e208;
-    animation: move 1.5s infinite;
+/* src/components/HeroSection.css */
+
+.hero-wrapper {
+  background-color: #020617;
+  width: 100%;
+  overflow-x: hidden; /* Prevents overflow from tech rings */
 }
 
-@keyframes move {
-    100%{
-        transform: translate(-50%,-50%) rotate(225deg);
-    }
+/* Cyber Grid Overlay - Refined Mask */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(51, 204, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(51, 204, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 85%);
+}
+
+/* Background Lighting */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.25;
+  z-index: 0;
+}
+
+.orb-purple {
+  width: 35vw;
+  height: 35vw;
+  background: #a000ff;
+  top: 10%;
+  left: 5%;
+}
+
+.orb-cyan {
+  width: 30vw;
+  height: 30vw;
+  background: #33ccff;
+  bottom: 10%;
+  right: 5%;
+}
+
+/* Image Frame - Centered Container for Rings */
+.hero-img-frame {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .hero-img-frame {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+/* Refined Profile Size */
+.hero-profile-img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  transition: transform 0.4s ease;
+}
+
+@media (min-width: 1024px) {
+  .hero-profile-img { 
+    width: 320px; 
+    height: 320px; 
+  }
+}
+
+/* Rotating Tech Rings */
+.tech-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(51, 204, 255, 0.2);
+  pointer-events: none;
+}
+
+.ring-1 { width: 95%; height: 95%; animation: spin 40s linear infinite; }
+.ring-2 { width: 115%; height: 115%; animation: spin 60s linear infinite reverse; }
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Typography Spacing */
+.hero-name-glow {
+  filter: drop-shadow(0 0 10px rgba(160, 0, 255, 0.3));
+}
+
+/* Shimmer Button Refinement */
+.hero-primary-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #33ccff;
+  color: #020617;
+  padding: 14px 32px;
+  border-radius: 14px;
+  font-weight: 800;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(51, 204, 255, 0.2);
+}
+
+.hero-primary-btn:hover {
+  transform: translateY(-4px);
+  background: #fff;
+  box-shadow: 0 15px 40px rgba(51, 204, 255, 0.4);
+}
+
+.hero-primary-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Fixed Spotlight */
+.hero-spotlight {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(51, 204, 255, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  filter: blur(50px);
+}
+
+/* --- RESPONSIVE REFINEMENTS --- */
+
+.hero-wrapper {
+  background-color: #020617;
+  width: 100%;
+  overflow-x: hidden;
+  /* Ensure content is never cut off on very short screens */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 1. Fluid Typography Scaling */
+/* Using clamp to ensure headers are big on desktop but readable on mobile */
+.hero-wrapper h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+}
+
+.hero-wrapper p {
+  font-size: clamp(0.9rem, 2vw, 1.125rem);
+  width: 100%;
+}
+
+/* 2. Responsive Tech Rings & Image Frame */
+/* We reduce the size significantly on mobile so the rings don't cause horizontal scroll */
+.hero-img-frame {
+  position: relative;
+  width: 280px; /* Base mobile size */
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .hero-img-frame {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-img-frame {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+/* 3. Profile Image Scaling */
+.hero-profile-img {
+  width: 180px; /* Base mobile size */
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .hero-profile-img {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-profile-img {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* 4. Background Orbs - Scaling for Mobile */
+/* Huge orbs can cause lag or weird gradients on mobile, so we shrink them */
+@media (max-width: 768px) {
+  .hero-orb {
+    filter: blur(80px);
+    opacity: 0.15;
+  }
+  .orb-purple {
+    width: 60vw;
+    height: 60vw;
+  }
+  .orb-cyan {
+    width: 50vw;
+    height: 50vw;
+  }
+  
+  /* Hide spotlight on mobile to save battery/performance if touch is used */
+  .hero-spotlight {
+    display: none;
+  }
+}
+
+/* 5. Layout Adjustments for Tablet/Mobile */
+@media (max-width: 1023px) {
+  .hero-wrapper {
+    padding-top: 120px; /* Space for fixed navbar */
+    padding-bottom: 60px;
+  }
+  
+  /* Stack buttons on very small screens */
+  .flex-wrap {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-primary-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+/* 6. Landscape Mode Fix */
+/* Prevents profile image from pushing text off-screen on landscape mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .hero-wrapper {
+    height: auto;
+    padding: 100px 0;
+  }
+  .hero-img-frame {
+    width: 200px;
+    height: 200px;
+  }
+  .hero-profile-img {
+    width: 140px;
+    height: 140px;
+  }
 }

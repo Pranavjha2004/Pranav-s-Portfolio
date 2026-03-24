@@ -1,0 +1,63 @@
+/* Toast.css */
+
+.terminal-toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 3000;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 204, 255, 0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(51, 204, 255, 0.1);
+  overflow: hidden;
+  max-width: 320px;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #e2e8f0;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+}
+
+.toast-icon {
+  font-size: 18px;
+}
+
+.toast-kbd {
+  background: rgba(51, 204, 255, 0.15);
+  border: 1px solid rgba(51, 204, 255, 0.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: #33ccff;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: auto;
+  transition: color 0.2s;
+}
+
+.toast-close:hover {
+  color: #fff;
+}
+
+/* Progress bar at the bottom */
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(to right, #33ccff, #a000ff);
+  box-shadow: 0 0 10px #33ccff;
+}

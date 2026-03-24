@@ -6,9 +6,10 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'custom-gradient': 'linear-gradient(to right, #243949 0%, #517fa4 100%)',
-      },
+      // backgroundImage: {
+      //   'custom-gradient': 'linear-gradient(to right, #243949 0%, #517fa4 100%)',
+      // },
+      
       fontFamily: {
         ubuntu: ['Ubuntu', 'sans-serif'],
       },

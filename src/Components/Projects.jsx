@@ -17,11 +17,33 @@ import ai_image_gen_logo from "../assets/ai_image_gen_logo.jpg";
 import reel_logo from "../assets/reel_logo.jpg";
 import masterofkeys_logo from "../assets/masterofkeys_logo.jpg";
 import urbanloop_logo from "../assets/urbanloop_logo.jpg";
+import sentience_logo from "../assets/sentience_logo.png";
 
 import "./Projects.css";
 
 // The missing data array
 const projectsData = [
+  {
+    imgAddress: masterofkeys_logo,
+    title: "Master Of Keys",
+    content: "Built an engaging and fully responsive landing page for NIRMAN tech fest using React, GSAP animations, and Tailwind CSS to enhance user experience.",
+    demolink: "https://master-of-keys.vercel.app/",
+    githublink: "https://github.com/Pranavjha2004/MasterOfKeys",
+  },
+  {
+    imgAddress: urbanloop_logo,
+    title: "Urban Loop",
+    content: "Built an engaging and fully responsive landing page for NIRMAN tech fest using React, GSAP animations, and Tailwind CSS to enhance user experience.",
+    demolink: "#",
+    githublink: "https://github.com/Pranavjha2004/Urban-Loop",
+  },
+  {
+    imgAddress: sentience_logo,
+    title: "Sentience.io",
+    content: "Built an AI-powered Review Sentiment Analysis platform that intelligently analyzes customer feedback using advanced Natural Language Processing. Features include real-time sentiment detection, detailed sentiment scoring, trend visualization, and insightful analytics dashboard.",
+    demolink: "https://customer-review-intelligence.vercel.app/",
+    githublink: "https://github.com/Pranavjha2004/Customer-Review-Intelligence",
+  },
   {
     imgAddress: netflix,
     title: "Netflix Landing Page Clone",
@@ -113,20 +135,7 @@ const projectsData = [
     demolink: "https://giggle-grid-rho.vercel.app/",
     githublink: "https://github.com/Pranavjha2004/GiggleGrid",
   },
-  {
-    imgAddress: masterofkeys_logo,
-    title: "Master Of Keys",
-    content: "Built an engaging and fully responsive landing page for NIRMAN tech fest using React, GSAP animations, and Tailwind CSS to enhance user experience.",
-    demolink: "https://master-of-keys.vercel.app/",
-    githublink: "https://github.com/Pranavjha2004/MasterOfKeys",
-  },
-  {
-    imgAddress: urbanloop_logo,
-    title: "Urban Loop",
-    content: "Built an engaging and fully responsive landing page for NIRMAN tech fest using React, GSAP animations, and Tailwind CSS to enhance user experience.",
-    demolink: "#",
-    githublink: "https://github.com/Pranavjha2004/Urban-Loop",
-  },
+  
 ];
 
 function Projects() {
